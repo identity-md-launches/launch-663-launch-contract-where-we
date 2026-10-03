@@ -1,8 +1,54 @@
-# PaidVoting
+# PaidVoting / paid.vote
 
-An immutable application that accepts paid votes and keeps the three addresses
-with the highest cumulative payments. **All paid ETH stays in the contract
-permanently. There are no withdrawals, refunds, rewards, or payouts.**
+Minimal ASCII-style voting website for the existing **PaidVoting** contract on **Sepolia (11155111)**, at `0x171985d413bcea96306a6fb55055d103a6a91cfa`.
+
+Connect a browser wallet, enter Sepolia ETH, vote and see the top three cumulative payers. **All paid ETH stays in the contract permanently. There are no refunds, rewards or payouts; gas is additional.** Wallet connection exposes an account; there is no backend login, account database or signature-based authentication.
+
+## Install and rebuild
+
+Requirements: Node.js 22.12+ (checked with 22.22.1), npm, Python 3.10+ and Bash. All frontend source, its new manifest and lockfile are in `web/`. Existing Solidity configuration and dependencies are unchanged.
+
+```sh
+bash web/scripts/build.sh
+```
+
+This installs the locked dependencies with `npm ci` into a temporary directory outside the repository, runs TypeScript checking and the 10 codec/amount tests, builds with Vite, replaces root `dist/`, and checks its relative asset links. Dependencies and caches are removed on exit. No ignore-file changes or repository `node_modules` are needed. Network access is needed to install packages; the finished export already contains all frontend runtime assets.
+
+For a retained development installation, copy `web/` to a temporary work directory, run `npm ci` there, then `npm run dev`. Its ordinary commands are `npm run typecheck`, `node --test tests/codec.test.mjs`, `npm run build`, and `npm run preview`. Vite writes the export to the staging directory’s sibling `dist/`; copy the complete result to this repository’s root `dist/` when publishing a change.
+
+## Preview and publish
+
+To preview the included production export without installing Node packages:
+
+```sh
+python3 -m http.server 4173 --directory dist
+```
+
+Open `http://localhost:4173`, then stop the server with Ctrl+C. Use a normal HTTP server rather than opening the HTML as a `file:` URL.
+
+Publish **all contents of root `dist/` together** to any HTTPS static host, gateway subpath or ENS/IPFS site. `dist/index.html`, hashed JS/CSS, favicon and third-party notices are delivery files alongside the source and `web/package-lock.json`. The publisher serves this export and does not need to rebuild. Vite uses `base: './'`; there are no server routes, private credentials or remote font dependencies. No deployment or publishing action was performed by this assignment.
+
+## Wallet and contract behavior
+
+- Supports injected EIP-1193 wallets and EIP-6963 discovery; multiple discovered wallets get a native selector. Mobile users need a wallet’s built-in browser or an injected provider. No WalletConnect relay is configured.
+- Connection and chain switching require a separate subsequent vote action. The user approves the transaction in their wallet. Disconnect clears local UI state; revoke site permissions in the wallet if needed.
+- Reads use the three pinned public RPCs with fallback and 30-second visible-page refresh. Leaderboard and totals are read at the same block. RPC failure marks existing data outdated and disables voting until refresh succeeds.
+- Both public reads and pre-transaction wallet checks compare deployed runtime bytecode. Votes use the pinned recipient, explicit Sepolia chain ID, ABI-derived `vote()` selector and exact bigint value, after simulation and a balance/gas check.
+- A pending hash persists in the tab’s session storage. Confirmed receipts refresh the board; reverted receipts show an error. For a dropped/replaced transaction, “Stop tracking” requires a warning confirmation and retains its explorer link. Stopping tracking does not cancel a transaction.
+- No live transaction was broadcast during validation. Real extension popups, hardware wallets and physical mobile devices were not exercised.
+
+`web/src/contract.json` contains the derived ABI and pinned deployment/network facts so the site remains rebuildable after assignment inputs are removed. `web/CONTRACT_VERIFICATION.md` records the exact ABI hash, source commit, deployed-code checks and live observations. The small codec deliberately supports only the static ABI types this UI uses.
+
+## Validation performed
+
+- Production Vite build and TypeScript `tsc --noEmit`: passed.
+- Codec and amount suite: **10/10 passed**, including independent selector values, fixed arrays, uint256 precision, one wei and invalid decimals.
+- `python3 web/scripts/check-export.py`: passed; five self-contained export files, 230,048 bytes, relative local resources, no archives or maps.
+- `python3 web/scripts/verify-contract.py`: passed source/ABI/bytecode verification and two live RPC state checks. One other RPC timed out on a state call; fallback remained usable.
+- Assigned Chromium browser: actual production bytes loaded under `/preview/`; desktop/mobile screenshots reviewed; widths from 320 to 1280px showed no horizontal overflow. Live reads and mocked wallet connection, switching, voting, rejection, confirmation, revert, pending recovery, account races and RPC failure/retry were exercised. Mock tests broadcast nothing.
+- Pinned Better Interface guide applied during construction; all six domains reviewed and applicable findings fixed. Full evidence, source locations and unperformed checks are in `VALIDATION.md`; implemented tokens/components are in `DESIGN.md`.
+
+Browser fixture setup is reproducible with `python3 web/scripts/prepare-browser.py` (requires Foundry `cast`). In the assigned browser’s `browser_run_code_unsafe` tool, run `test/scratch/browser/serve-export.js`, then `test/scratch/browser/mock-setup.js`, then `web/tests/check-primary.js` and `web/tests/check-recovery.js`. The harness fulfills relative static requests with unmodified export bytes and mocks only RPC/wallet behavior. It is not part of the production site. A fresh browser session is required to return to real RPC reads. Native screen-reader sessions, browser-native zoom, non-Chromium browsers and real-wallet signing remain unperformed; these checks are worker observations, not independent certification.
 
 ## Assumptions and behavior
 
@@ -89,11 +135,9 @@ the factory, chain, salt, transaction funding, and confirmed application address
 The constructor does not depend on `msg.sender`, so a factory gains no control.
 No owner address or outside-contract address needs configuration.
 
-This deliverable prepares the application for that factory; it does not send a
-deployment transaction, hold wallet keys, or claim a live contract address.
-The deployer is responsible for reviewing the retained-payment policy, confirming
-the chain and compiled artifact, simulating deployment, publishing the confirmed
-address, and verifying source on the relevant explorer. A UI must clearly disclose
+The contract is now live on Sepolia at the verified address listed above. This
+website assignment did not deploy or change it. The frontend holds no wallet
+keys and verifies the chain and exact runtime before requesting a vote. A UI must clearly disclose
 that payments cannot be recovered and must call `vote()` with explicit value.
 Users pay transaction gas separately; failed calls do not record payments.
 

@@ -1,0 +1,175 @@
+{
+  "name": "PaidVoting",
+  "address": "0x171985d413bcea96306a6fb55055d103a6a91cfa",
+  "chainId": 11155111,
+  "sourceCommit": "3ec109730bda79468a5997e09fce0f6e2ce0e6b7",
+  "deploymentTransaction": "0x48a68b261a16f1e1babed9b4838837d82d3079f53f38e83399ee7e21cd6f10d3",
+  "deploymentBlock": 11833739,
+  "abiHash": "0x1e4af9122817416e59d3066c97cfa6de50ff36d6fb3b090c913e10036a12646e",
+  "creationCodeHash": "0x3da6e6566dbb287e335d93d06107a04d19f36a9254c10013a6faba100f99cc30",
+  "runtimeCodeHash": "0xd3d6146d41c4cf29285078313a3f0b10fc37b86825eede47a90f4e1d7fb4daf9",
+  "runtimeBytecode": "0x608060405260043610610054575f3560e01c80630d15fd771461005857806312cce2b5146100805780633dd6d533146100b7578063632a9a52146100e25780636b0e442e146100ec578063a3c2c4621461010e575b5f80fd5b348015610063575f80fd5b5061006d60025481565b6040519081526020015b60405180910390f35b34801561008b575f80fd5b5061009f61009a366004610443565b610123565b6040516001600160a01b039091168152602001610077565b3480156100c2575f80fd5b5061006d6100d136600461045a565b5f6020819052908152604090205481565b6100ea610142565b005b3480156100f7575f80fd5b5061010061020b565b604051610077929190610487565b348015610119575f80fd5b5061006d60015481565b60038160038110610132575f80fd5b01546001600160a01b0316905081565b345f03610162576040516311e51d5160e31b815260040160405180910390fd5b335f9081526020819052604081205461017c9034906104fe565b335f9081526020819052604081208290556001805492935034929091906101a49084906104fe565b92505081905550600160025f8282546101bd91906104fe565b909155506101cd905033826102bc565b604080513481526020810183905233917f510c065516f575495a64f9e1dc65ae297ef6f08fa63d8d22ecfa5393fc487ada910160405180910390a250565b610213610425565b61021b610425565b60408051606081019182905290600390819081845b81546001600160a01b0316815260019091019060200180831161023057505050505091505f5b60038110156102b7575f8084836003811061027357610273610517565b60200201516001600160a01b03166001600160a01b031681526020019081526020015f20548282600381106102aa576102aa610517565b6020020152600101610256565b509091565b60035f5b600381101561030657836001600160a01b0316600382600381106102e6576102e6610517565b01546001600160a01b0316036102fe57809150610306565b6001016102c0565b5080600303610338576005546001600160a01b03165f90815260208190526040902054821161033457505050565b5060025b5f8111801561037f57505f80600361035160018561052b565b6003811061036157610361610517565b01546001600160a01b0316815260208101919091526040015f205482115b156103ed57600361039160018361052b565b600381106103a1576103a1610517565b01546001600160a01b03166003828181106103be576103be610517565b0180546001600160a01b0319166001600160a01b03929092169190911790556103e68161053e565b9050610338565b826003826003811061040157610401610517565b0180546001600160a01b0319166001600160a01b0392909216919091179055505050565b60405180606001604052806003906020820280368337509192915050565b5f60208284031215610453575f80fd5b5035919050565b5f6020828403121561046a575f80fd5b81356001600160a01b0381168114610480575f80fd5b9392505050565b60c0810181845f5b60038110156104b75781516001600160a01b031683526020928301929091019060010161048f565b50505060608201835f5b60038110156104e05781518352602092830192909101906001016104c1565b5050509392505050565b634e487b7160e01b5f52601160045260245ffd5b80820180821115610511576105116104ea565b92915050565b634e487b7160e01b5f52603260045260245ffd5b81810381811115610511576105116104ea565b5f8161054c5761054c6104ea565b505f19019056fea164736f6c634300081a000a",
+  "network": {
+    "chainId": 11155111,
+    "name": "Sepolia",
+    "testnet": true,
+    "rpcUrls": [
+      "https://ethereum-sepolia-rpc.publicnode.com",
+      "https://rpc.sepolia.ethpandaops.io",
+      "https://sepolia.rpc.sentio.xyz"
+    ],
+    "explorer": "https://sepolia.etherscan.io",
+    "nativeCurrency": {
+      "name": "Sepolia Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "faucets": [
+      "https://cloud.google.com/application/web3/faucet/ethereum/sepolia",
+      "https://www.alchemy.com/faucets/ethereum-sepolia"
+    ]
+  },
+  "walletAddChain": {
+    "chainId": "0xaa36a7",
+    "chainName": "Sepolia",
+    "rpcUrls": [
+      "https://ethereum-sepolia-rpc.publicnode.com",
+      "https://rpc.sepolia.ethpandaops.io",
+      "https://sepolia.rpc.sentio.xyz"
+    ],
+    "nativeCurrency": {
+      "name": "Sepolia Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "blockExplorerUrls": [
+      "https://sepolia.etherscan.io"
+    ]
+  },
+  "abi": [
+    {
+      "type": "constructor",
+      "inputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "getTopPayers",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "payers",
+          "type": "address[3]",
+          "internalType": "address[3]"
+        },
+        {
+          "name": "amounts",
+          "type": "uint256[3]",
+          "internalType": "uint256[3]"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "topPayers",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "totalPaid",
+      "inputs": [
+        {
+          "name": "payer",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "amount",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "totalReceived",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "totalVotes",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "vote",
+      "inputs": [],
+      "outputs": [],
+      "stateMutability": "payable"
+    },
+    {
+      "type": "event",
+      "name": "VotePaid",
+      "inputs": [
+        {
+          "name": "payer",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        },
+        {
+          "name": "cumulativePaid",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "error",
+      "name": "ZeroPayment",
+      "inputs": []
+    }
+  ]
+}
