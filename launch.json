@@ -1,0 +1,10 @@
+{
+  "kind": "evm_contracts",
+  "contracts": [
+    {
+      "contract": "PaidVoting",
+      "constructorArgs": []
+    }
+  ],
+  "notes": "Permissionless paid voting ranked by cumulative native ETH. No owner, pause, upgrade, external dependency, withdrawal, refund, or payout. All received ETH remains permanently in the contract. Deploy with zero ETH."
+}
